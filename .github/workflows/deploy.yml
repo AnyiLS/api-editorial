@@ -1,0 +1,36 @@
+name: despliegue
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: install php 8.1
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.1
+
+      - name: instalar dependencias de composer
+        run: composer install --ignore-platform-reqs
+
+      - name: Copy .env
+        run: cp .env.example .env
+
+      - name: Generate Laravel application key
+        run: php artisan key:generate
+
+      - name: Deploy To Server
+        uses: SamKirkland/FTP-Deploy-Action@4.3.3
+        with:
+          server: eml.com.co
+          username: deployeml@eml.com.co
+          password: EmlPage2023
+          protocol: ftp
+          server-dir: ./api-editorizacion-dinamica.eml.com.co/
+          local-dir: ./
