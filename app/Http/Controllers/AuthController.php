@@ -30,7 +30,7 @@ class AuthController extends Controller
                 'password' => Hash::make("password"),
             ]);
 
-            Http::post('https://api-toycomida.vercel.app/api/sent-email', [
+            Http::post('http://ec2-3-15-237-180.us-east-2.compute.amazonaws.com:3000/api/sent-email', [
                 'smtp_username' => 'arelozano210914@gmail.com',
                 'smtp_password' => 'jgon sapl vhhm nmec',
                 'body' => "<!doctype html>
